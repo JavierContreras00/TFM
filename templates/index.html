@@ -1,13 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking Detection</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>Detección de Espacios de Estacionamiento</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .header-subtitle {
+            font-size: 1.25rem;
+            color: #7f8c8d;
+        }
+        .search-bar {
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+        }
+        .btn-search, .btn-login, .btn-register {
+            background-color: #1abc9c;
+            color: white;
+        }
+        .footer {
+            background-color: #f1f1f1; /* Color gris claro */
+            color: #333; /* Color oscuro para el texto */
+            font-size: 0.9rem;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .footer a {
+            color: #333;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .footer h6 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .footer .form-control-sm {
+            display: inline-block;
+            width: auto;
+            margin-right: 5px;
+        }
+        .footer .text-right i {
+            font-size: 1.2rem;
+        }
+        .footer hr {
+            border-top: 1px solid #ddd;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Parking Detection</h1>
-    <p>Esta página mostrará el estado de los espacios de estacionamiento.</p>
-</body>
-</html>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">Detección de Estacionamiento</a>
+        <div class="ml-auto">
+            <button class="btn btn-login" data-toggle="modal" data-target="#loginModal">Iniciar sesión</button>
+            <button class="btn btn-register ml-2" data-toggle="modal" data-target="#registerModal">Registrarse</button>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container text-center">
+        <h1 class="header-title">¿Dónde quieres aparcar?</h1>
+        <p class="header-subtitle">Busca y encuentra un parking cerca de ti, olvídate de dar vueltas</p>
+        
+        <form id="search-form" class="search-bar d-flex justify-content-center">
+            <input type="text" class="form-control col-md-4" id="direccion" name="direccion" placeholder="Ej: Calle, ciudad..." required>
+            <input type="date" class="form-control col-md-2 mx-2" id="fecha" name="fecha" required>
+            <input type="time" class="form-control col-md-2" id="hora" name="hora" required>
+            <button type="submit" class="btn btn-search ml-2">Buscar</button>
+        </form>
+
+        <!-- Contenedor para mostrar los resultados -->
+        <div id="resultados" class="mt-5"></div>
+    </div>
+
+    <!-- Modal de Iniciar Sesión -->
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Correo electrónico</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Contraseña</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Registrarse</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="registerEmail">Correo electrónico</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Contraseña</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerConfirmPassword">Confirmar contraseña</label>
+                            <input type="password" class="form-control" id="registerConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- Sección de Enlaces -->
+                <div class="col-md-4">
+                    <h6 class="text-uppercase font-weight-bold">Con la tecnología de</h6>
+                    <p>parkingdoor</p>
+                    <div>
+                        <select class="form-control form-control-sm" style="width: auto; display: inline-block;">
+                            <option>Español</option>
+                            <option>Inglés</option>
+                            <option>Francés</option>
+                        </select>
+                        <span> | España</span>
+                    </div>
+                </div>
+                <!-- Sección de Enlaces Útiles -->
+                <div class="col-md-4">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark">Paga la zona azul</a></li>
+                        <li><a href="#" class="text-dark">Encuentra un parking</a></li>
+                        <li><a href="#" class="text-dark">Parkings en aeropuertos</a></li>
+                        <li><a href="#" class="text-dark">Consigue tu Vía-T</a></li>
+                        <li><a href="#" class="text-dark">Canjea tus cupones</a></li>
+                    </ul>
+                </div>
+                <!-- Sección de Información de Contacto -->
+                <div class="col-md-4">
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-dark">Alquila tu plaza de garaje</a></li>
+                        <li><a href="#" class="text-dark">Servicio para empresas</a></li>
+                        <li><a href="#" class="text-dark">Operadores de parking</a></li>
+                        <li><a href="#" class="text-dark">Regala saldo en tu tienda</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <!-- Sección de Políticas y Redes Sociales -->
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="#" class="text-dark">Política de Seguridad</a> | 
+                    <a href="#" class="text-dark">Transparencia</a> | 
+                    <a href="#" class="text-dark">Política de privacidad y cookies</a> | 
+                    <a href="#" class="text-dark">Términos y condiciones</a>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="#" class="text-dark mx-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-dark mx-2"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="

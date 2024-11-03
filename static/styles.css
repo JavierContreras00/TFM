@@ -1,14 +1,36 @@
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
+.footer {
+    background-color: #f1f1f1; /* Color gris claro para el fondo */
+    color: #333; /* Color oscuro para el texto */
+    font-size: 0.9rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-h1 {
-    color: #333;
+.footer a {
+    color: #333; /* Color oscuro para los enlaces */
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer h6 {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.footer .form-control-sm {
+    display: inline-block;
+    width: auto;
+    margin-right: 5px;
+}
+
+.footer .text-right i {
+    font-size: 1.2rem;
+}
+
+.footer hr {
+    border-top: 1px solid #ddd; /* Línea divisoria en gris */
+    margin: 1rem 0;
 }

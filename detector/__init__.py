@@ -1,0 +1,1 @@
+from ..detectar import DetectorAparcamiento
